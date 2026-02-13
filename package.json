@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mistralai/mistralai": "^1.14.0",
     "axios": "^1.13.5",
     "canvas-confetti": "^1.9.4",
     "cors": "^2.8.6",
