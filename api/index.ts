@@ -252,7 +252,10 @@ app.delete('/api/admin/courses/:id', authenticateToken, async (req: AuthRequest,
 
 // GESTIÓN DE RUTAS
 app.post('/api/admin/paths', authenticateToken, async (req: AuthRequest, res: Response) => {
-  const { title, description, color } = req.body;
+  // Intentamos sacar los datos directo o desde req.body.path
+  const data = req.body.path || req.body; 
+  const { title, description, color } = data;
+
   try {
     const result = await pool.query(
       'INSERT INTO paths (title, description, color) VALUES ($1, $2, $3) RETURNING *',
@@ -260,6 +263,7 @@ app.post('/api/admin/paths', authenticateToken, async (req: AuthRequest, res: Re
     );
     res.status(201).json(result.rows[0]);
   } catch (err: any) {
+    console.error("Error detallado en POST paths:", err.message); // Mira esto en los logs
     res.status(500).json({ error: err.message });
   }
 });
