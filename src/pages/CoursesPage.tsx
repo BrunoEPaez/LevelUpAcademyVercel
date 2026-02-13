@@ -24,7 +24,7 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({
   useEffect(() => {
     // Solo hace el fetch si no vienen cursos desde las props
     if (!initialCourses || initialCourses.length === 0) {
-      fetch('http://localhost:3001/api/courses')
+      fetch('/api/courses')
         .then((res) => res.json())
         .then((data) => {
           setCourses(data);

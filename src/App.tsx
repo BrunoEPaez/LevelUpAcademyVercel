@@ -58,7 +58,7 @@ const App: React.FC = () => {
   }
 
   try {
-    await axios.post('http://localhost:3001/api/progress', 
+    await axios.post('/api/progress', 
       { course_id: courseId, action_type: 'completed' }, // Importante enviar el tipo
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -71,7 +71,7 @@ const App: React.FC = () => {
 const handleSelectCourse = async (course: any) => {
   try {
     // Intentamos traer datos frescos del servidor
-    const res = await axios.get(`http://localhost:3001/api/courses/${course.id}`);
+    const res = await axios.get(`/api/courses/${course.id}`);
     setSelectedCourse(res.data);
     localStorage.setItem('selectedCourse', JSON.stringify(res.data));
     navigateTo('course-detail');
@@ -119,7 +119,7 @@ useEffect(() => {
 useEffect(() => {
   if (token) {
     // Cargar cursos completados desde el backend
-    axios.get('http://localhost:3001/api/progress', {
+    axios.get('/api/progress', {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(res => {
@@ -164,7 +164,7 @@ useEffect(() => {
 
   const handleLogin = async (credentials: any) => {
   try {
-    const res = await axios.post('http://localhost:3001/api/login', { user: credentials });
+    const res = await axios.post('/api/login', { user: credentials });
     const authToken = res.data.token;
     
     // MEJORA: Si user.name es nulo, sacamos el nombre del email (emmanuel)
@@ -190,7 +190,7 @@ useEffect(() => {
 };
   const handleRegister = async (userData: any) => {
     try {
-      await axios.post('http://localhost:3001/api/register', { user: userData });
+      await axios.post('/api/register', { user: userData });
       alert("¡Cuenta creada con éxito!");
       navigateTo('login');
     } catch (err: any) {
@@ -232,13 +232,13 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       // 1. Cargamos TODOS los cursos de la DB
-      const resCourses = await axios.get('http://localhost:3001/api/courses');
+      const resCourses = await axios.get('/api/courses');
       setCourses(resCourses.data);
 
       // 2. Si hay token, traemos el progreso
       if (token) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
-        const resProgress = await axios.get('http://localhost:3001/api/progress', config);
+        const resProgress = await axios.get('/api/progress', config);
         setCompleted(resProgress.data.completedCourseIds || []);
         setFavorites(resProgress.data.favoriteIds || []);
       }
@@ -261,7 +261,7 @@ useEffect(() => {
 
     // 2. Guardar en Backend
     try {
-      await axios.post('http://localhost:3001/api/progress', 
+      await axios.post('/api/progress', 
         { course_id: course.id, action_type: 'favorite' }, // Enviamos action_type para que el backend sepa qué hacer
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -1,4 +1,7 @@
 import axios from 'axios';
+
 export const api = axios.create({
-  baseURL: 'http://localhost:3000' // Puerto de Rails
-}); 
+  // En Vercel, el frontend y el backend comparten la misma URL
+  // Al poner '/api', axios sabrá que debe buscar en el mismo servidor
+  baseURL: '/api' 
+});

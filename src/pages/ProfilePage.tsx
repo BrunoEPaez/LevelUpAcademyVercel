@@ -12,7 +12,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ token, handleLogout }) => {
 
   const fetchProfile = () => {
     if (token) {
-      axios.get('http://localhost:3001/api/profile', {
+      axios.get('/api/profile', {
         headers: { Authorization: `Bearer ${token}` }
       })
       .then(res => setUser(res.data))
@@ -48,7 +48,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ token, handleLogout }) => {
         avatar_base64: user.avatar_base64 // Se mantiene la que ya existe si no se cambia
       };
       
-      const res = await axios.patch('http://localhost:3001/api/profile', 
+      const res = await axios.patch('/api/profile', 
         { user: cleanData }, 
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -65,7 +65,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ token, handleLogout }) => {
     const confirm = window.confirm("⚠️ ¿ESTÁS SEGURO? Esta acción eliminará permanentemente tu cuenta y no se puede deshacer.");
     if (confirm && token) {
       try {
-        await axios.delete('http://localhost:3001/api/profile', {
+        await axios.delete('/api/profile', {
           headers: { Authorization: `Bearer ${token}` }
         });
         alert("Cuenta eliminada. Adiós.");

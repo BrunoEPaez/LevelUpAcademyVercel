@@ -62,9 +62,9 @@ const AdminPage: React.FC<{ token: string | null }> = ({ token }) => {
 
   const fetchData = async () => {
     try {
-      const resCourses = await axios.get('http://localhost:3001/api/courses');
+      const resCourses = await axios.get('/api/courses');
       setCourses(resCourses.data);
-      const resPaths = await axios.get('http://localhost:3001/api/paths');
+      const resPaths = await axios.get('/api/paths');
       setPaths(resPaths.data);
     } catch (err) {
       console.error("Error cargando datos");
@@ -80,7 +80,7 @@ const AdminPage: React.FC<{ token: string | null }> = ({ token }) => {
     if (!window.confirm('¿Estás seguro de eliminar este video de la biblioteca?')) return;
     try {
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      await axios.delete(`http://localhost:3001/api/admin/courses/${id}`, config);
+      await axios.delete(`/api/admin/courses/${id}`, config);
       fetchData();
       setStatus({ msg: 'Video eliminado', type: 'success' });
     } catch (err) {
@@ -92,7 +92,7 @@ const AdminPage: React.FC<{ token: string | null }> = ({ token }) => {
     if (!window.confirm('¿Borrar esta ruta? Los videos no se borrarán, solo la carrera.')) return;
     try {
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      await axios.delete(`http://localhost:3001/api/admin/paths/${id}`, config);
+      await axios.delete(`/api/admin/paths/${id}`, config);
       fetchData();
       setStatus({ msg: 'Ruta eliminada', type: 'success' });
     } catch (err) {
@@ -115,10 +115,10 @@ const AdminPage: React.FC<{ token: string | null }> = ({ token }) => {
   try {
     const config = { headers: { Authorization: `Bearer ${token}` } };
     if (editingCourseId) {
-      await axios.put(`http://localhost:3001/api/admin/courses/${editingCourseId}`, courseData, config);
+      await axios.put(`/api/admin/courses/${editingCourseId}`, courseData, config);
       setStatus({ msg: 'Video actualizado', type: 'success' });
     } else {
-      await axios.post('http://localhost:3001/api/admin/courses', courseData, config);
+      await axios.post('/api/admin/courses', courseData, config);
       setStatus({ msg: 'Video creado', type: 'success' });
     }
     
@@ -143,12 +143,12 @@ const AdminPage: React.FC<{ token: string | null }> = ({ token }) => {
     try {
       let currentId = editingPathId;
       if (editingPathId) {
-        await axios.put(`http://localhost:3001/api/admin/paths/${editingPathId}`, pathBasicData, config);
+        await axios.put(`/api/admin/paths/${editingPathId}`, pathBasicData, config);
       } else {
-        const res = await axios.post('http://localhost:3001/api/admin/paths', pathBasicData, config);
+        const res = await axios.post('/api/admin/paths', pathBasicData, config);
         currentId = res.data.id;
       }
-      await axios.post(`http://localhost:3001/api/paths/${currentId}/courses`, {
+      await axios.post(`/api/paths/${currentId}/courses`, {
         videoIds: pathForm.selectedVideos
       }, config);
 
@@ -163,7 +163,7 @@ const AdminPage: React.FC<{ token: string | null }> = ({ token }) => {
   const startEditPath = async (p: any) => {
     setEditingPathId(p.id);
     try {
-      const res = await axios.get(`http://localhost:3001/api/paths/${p.id}/courses`);
+      const res = await axios.get(`/api/paths/${p.id}/courses`);
       const assignedIds = res.data.map((c: any) => c.id);
       setPathForm({ 
         title: p.title, 

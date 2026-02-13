@@ -24,7 +24,7 @@ export const PathDetailPage = ({
       try {
         setLoading(true);
         // Consultamos al endpoint que devuelve los videos de esta ruta específica
-        const res = await axios.get(`http://localhost:3001/api/paths/${selectedRoute.id}/courses`);
+        const res = await axios.get(`/api/paths/${selectedRoute.id}/courses`);
         setRouteCourses(res.data);
       } catch (err) {
         console.error("Error cargando videos de la ruta:", err);

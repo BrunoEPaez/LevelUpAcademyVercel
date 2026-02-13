@@ -11,8 +11,8 @@ export const CategoriesPage = ({ completed, navigateTo, setSelectedRoute }: any)
       try {
         // Traemos las rutas y los cursos para calcular el progreso real
         const [resPaths, resCourses] = await Promise.all([
-          axios.get('http://localhost:3001/api/paths'),
-          axios.get('http://localhost:3001/api/courses')
+          axios.get('/api/paths'),
+          axios.get('/api/courses')
         ]);
         setPaths(resPaths.data);
         setCourses(resCourses.data);
