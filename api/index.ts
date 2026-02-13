@@ -343,7 +343,7 @@ app.get('/api/courses', async (req: Request, res: Response) => {
 });
 
 // MANEJO DE ERRORES DE PUERTO
-/*
+
 const PORT = process.env.PORT || 3001;
 const server = app.listen(PORT, () => {
   console.log(`🚀 LevelUp Academy API activa en puerto ${PORT}`);
@@ -355,7 +355,7 @@ const server = app.listen(PORT, () => {
     console.error("❌ Error al iniciar el servidor:", err);
   }
 });
-*/
+
 
 // ✅ AGREGA ESTO:
 export default app;

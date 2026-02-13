@@ -270,11 +270,13 @@ useEffect(() => {
     }
   };
 
-  const displayCourses = courses.filter((course: any) => {
-    const matchesText = course.title.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCat = catFilter === 'Todos' || course.category === catFilter || course.job_type === catFilter;
-    return matchesText && matchesCat;
-  });
+  const displayCourses = (Array.isArray(courses) ? courses : []).filter((course: any) => {
+  // También protegemos el título por si algún curso viene mal cargado
+  const title = course.title || ""; 
+  const matchesText = title.toLowerCase().includes(searchTerm.toLowerCase());
+  const matchesCat = catFilter === 'Todos' || course.category === catFilter || course.job_type === catFilter;
+  return matchesText && matchesCat;
+});
 
   const downloadPDF = async (courseTitle: string) => {
     const element = document.getElementById('diploma-to-print');

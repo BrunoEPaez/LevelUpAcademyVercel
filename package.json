@@ -36,5 +36,11 @@
     "@vitejs/plugin-react": "^4.x.x",
     "typescript": "^5.x.x",
     "vite": "^5.x.x"
-  }
+  },
+
+  "scripts": {
+  "start": "node api/index.js",
+  "dev:server": "ts-node api/index.ts", 
+  "dev:client": "vite"
+}
 }
